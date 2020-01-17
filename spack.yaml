@@ -1,0 +1,88 @@
+spack:
+  definitions:
+  - bootstrapped_compilers:
+    - "llvm@6.0.0 os=ubuntu18.04"
+    - "gcc@6.5.0 os=ubuntu18.04"
+    - "gcc@8.3.0 os=ubuntu18.04"
+  - gcc_system_packages:
+    - matrix:
+      - - zlib
+        - zlib@1.2.8
+        - zlib@1.2.8 cppflags=-O3
+        - tcl
+        - tcl ^zlib@1.2.8 cppflags=-O3
+        - hdf5
+        - hdf5~mpi
+        - hdf5+hl+mpi ^mpich
+        - trilinos
+        - trilinos +hdf5 ^hdf5+hl+mpi ^mpich
+        - gcc@8.3.0
+        - mpileaks
+        - lmod
+      - ['%gcc@7.4.0']
+  - gcc_old_packages:
+    - zlib%gcc@6.5.0
+  - clang_packages:
+    - matrix:
+      - [zlib, tcl ^zlib@1.2.8]
+      - ['%clang@6.0.0']
+  - gcc_spack_built_packages:
+    - matrix:
+      - [netlib-scalapack]
+      - [^mpich, ^openmpi]
+      - [^openblas, ^netlib-lapack]
+      - ['%gcc@8.3.0']
+    - matrix:
+      - [py-scipy^openblas, armadillo^openblas, netlib-lapack, openmpi, mpich, elpa^mpich]
+      - ['%gcc@8.3.0']
+  specs:
+  - $gcc_system_packages
+  - $gcc_old_packages
+  - $clang_packages
+  - $gcc_spack_built_packages
+
+  mirrors:
+    cloud_mirror: 's3://spack-public/mirror'
+
+  gitlab-ci:
+    bootstrap:
+      - name: bootstrapped_compilers
+        compiler-agnostic: true
+    mappings:
+    - match: [trilinos os=ubuntu18.04]
+      runner-attributes:
+        image:
+          name: spack/ubuntu-bionic
+          entrypoint: ['']
+        tags: [spack-kube, r5.2xlarge]
+        variables: {}
+    - match: [os=ubuntu18.04]
+      runner-attributes:
+        image:
+          name: spack/ubuntu-bionic
+          entrypoint: ['']
+        tags: [spack-kube]
+        variables: {}
+    final-stage-rebuild-index:
+      tags: [spack-kube]
+      image:
+        name: spack/ubuntu-bionic
+        entrypoint: ['']
+    enable-debug-messages: True
+
+  cdash:
+    build-group: Spack Tutorial Container (Test)
+    url: https://cdash.spack.io
+    project: Spack Testing
+    site: Spack Gitlab Cloud Infrastructure
+
+  view: false
+  config: {}
+  modules:
+    enable: []
+  packages:
+    all:
+      target: [x86_64]
+  repos: []
+  upstreams: {}
+  concretization: separately

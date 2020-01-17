@@ -1,0 +1,18 @@
+pipeline-job:
+    image:
+      name: spack/ubuntu-bionic
+      entrypoint: ['']
+    tags:
+      - spack-kube
+    before_script:
+      - git clone ${SPACK_REPO} --branch ${SPACK_REF}
+      - . "./spack/share/spack/setup-env.sh"
+    script:
+      - spack ci start
+        --spack-repo ${SPACK_REPO}
+        --spack-ref ${SPACK_REF}
+        --downstream-repo "${DOWNSTREAM_CI_REPO}"
+        --branch-name "${CI_COMMIT_REF_NAME}"
+        --commit-sha "${CI_COMMIT_SHA}"
+    after_script:
+      - rm -rf "./spack"
