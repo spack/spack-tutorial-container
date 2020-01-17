@@ -49,7 +49,7 @@ spack:
       - name: bootstrapped_compilers
         compiler-agnostic: true
     mappings:
-    - match: [trilinos os=ubuntu18.04]
+    - match: [trilinos, llvm, gcc]
       runner-attributes:
         image:
           name: spack/ubuntu-bionic
