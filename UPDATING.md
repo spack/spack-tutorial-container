@@ -21,6 +21,10 @@ The `public.key` can be committed to the repository and kept around for as
 long as the signing key (private) will continue to be used to sign the
 tutorial packages.
 
+NOTE: the "name-of-key-to-export" should identify a key from the keychain
+that does not require a passphrase, or it will not work in the pipeline
+build jobs.
+
 1. Create a new mirror (this is required until the sync process between the
 mirror and the container build cache is controlled by/limited to the spack
 environment in which it runs)
