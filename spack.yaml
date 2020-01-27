@@ -61,7 +61,7 @@ spack:
         image:
           name: spack/ubuntu-bionic
           entrypoint: ['']
-        tags: [spack-kube]
+        tags: [spack-kube, large]
         variables: {}
     final-stage-rebuild-index:
       tags: [spack-kube]
