@@ -39,6 +39,8 @@ See the spack pipeline [documentation](https://github.com/scottwittenburg/spack/
 
 Because we want to use a custom spack (one other than the runners may already have available), we add the `SPACK_REPO` and `SPACK_REF` environment variables listed above.  We then use those variables to clone spack in the pre-ci phase, as well as pass them along to the `spack ci generate` command so that custom spack will be cloned and activated as a part of the `before_script` of each generated pipeline job.
 
+More detailed instructions on setting up the Gitlab CI/CD only repo can be found [here](./GITLAB_SETUP.md).
+
 ## Spack mirror
 
 This workflow makes use of a public mirror hosted on AWS S3.  The automated pipeline pushes binaries to the mirror as packages are successfully built, and then the auto-build on DockerHub pulls those and copies them into the image for publishing.  To authenticate with the S3 bucket, authentication credentials should be stored in CI variables as described in the section above.
