@@ -46,7 +46,7 @@ This section guides you through configuring various project settings.
 
 The most important configuration requirement is to set up the necessary
 CI/CD variables your automated pipelines will need.  The spack [pipelines
-documentation](https://spack.readthedocs.io/en/latest/pipelines.html#environment-variables-affecting-pipeline-operatio)
+documentation](https://spack.readthedocs.io/en/latest/pipelines.html#environment-variables-affecting-pipeline-operation)
 describes the individual variables in more detail.
 
 <kbd><img src="./images/setup-ci-variables.png" alt="Set CI Variables" title="Set CI Variables" /></kbd>
@@ -96,14 +96,15 @@ generate child pipelines, spack is relying on pushing a commit with the
 generated workload to a `DOWNSTREAM_CI_REPO` (usually the same repo, but
 it's up to you).  So as soon as the "pre-ci" phase (job generation) completes
 successfully, Gitlab will report success to your PR, and it will become
-mergeable.
+mergeable (not ideal, since the main workflow of building all your environment
+specs very likely hasn't completed).
 
-Sometimes it seems to take Gitlab awhile to notice your new PR or a commit
-you've pushed to a PR branch.  If this happens, you can try asking Gitlab
-to refresh the mirrored repository manually.  To do this, navigate to the
-"Repository" section of your Gitlab project settings and expand the "Mirroring
-repositories" section. At the bottom of that section, you should find your
-linked external GitHub repo, and on the right is a button allowing you to
-"Update now".
+Another issue is that sometimes it seems to take Gitlab awhile to notice your
+new PR or a commit you've pushed to a PR branch.  If this happens, you can try
+asking Gitlab to refresh the mirrored repository manually.  To do this,
+navigate to the "Repository" section of your Gitlab project settings and expand
+the "Mirroring repositories" section. At the bottom of that section, you should
+find your linked external GitHub repo, and on the right is a button allowing
+you to "Update now".
 
 <kbd><img src="./images/refresh-mirrored-repo.png" alt="Update mirrored repo" title="Update mirrored repo" /></kbd>
