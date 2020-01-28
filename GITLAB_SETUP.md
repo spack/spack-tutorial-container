@@ -1,6 +1,6 @@
 # Setting up the Gitlab CI/CD Repo
 
-This document describes the steps required to setup a Gitlab repo that
+This document describes the steps required to setup a Gitlab project that
 will run pipelines against an external GitHub repo whenever you make a
 PR or push a commit on an open PR on that repo.  Gitlab provides some
 documentation on the process as well, you can read that
@@ -14,26 +14,26 @@ mentions some issues you may encounter as well as ways to work around them.
 Start by navigating to your projects and clicking the green "New Project"
 button near the upper right corner of the page.
 
-![New Project](./images/new-project-top-only.png "New Project Page")
+<kbd><img src="./images/new-project-top-only.png" alt="New Project" title="New Project" /></kbd>
 
 Next click on the "CI/CD for external repo" tab, also located near the top
 right of the page.  Then, under "Connect repositories from", click the
 "GitHub" button.
 
-![CI/CD Project](./images/ci-cd-external-repo.png "CI/CD for external repo")
+<kbd><img src="./images/ci-cd-external-repo.png" alt="CI/CD Project" title="CI/CD Project" /></kbd>
 
 For the next step you will need to have created a personal access token in
 GitHub previously.  Paste that token into the field marked "Personal Access
 Token", and then click the green button labeled "List your GitHub repositories".
 
-![Import Repositories](./images/import-repos-from-github-need-token.png "List GitHub repositories")
+<kbd><img src="./images/import-repos-from-github-need-token.png" alt="Import Repositories" title="Import Repositories" /></kbd>
 
 On the next page you should see a list of all the repositories under all
 organizations to which you have access.  Find the project you want Gitlab
 to mirror and run pipelines for, and then click its "Connect" button in the
 right column.
 
-![Connect to Repository](./images/imported-repositories.png "Connect to repository of interest")
+<kbd><img src="./images/imported-repositories.png" alt="Connect to Repository" title="Connect to Repository" /></kbd>
 
 At this point, you can move on to configuring settings in the new Gitlab
 CI/CD repository.
@@ -49,7 +49,7 @@ CI/CD variables your automated pipelines will need.  The spack [pipelines
 documentation](https://spack.readthedocs.io/en/latest/pipelines.html#environment-variables-affecting-pipeline-operatio)
 describes the individual variables in more detail.
 
-![Set CI Variables](./images/setup-ci-variables.png "Set CI Variables")
+<kbd><img src="./images/setup-ci-variables.png" alt="Set CI Variables" title="Set CI Variables" /></kbd>
 
 ### General pipelines
 
@@ -60,7 +60,7 @@ fresh state for every job).  These settings can be found under the CI/CD
 section of your project settings after you expand the "General Pipelines"
 section.
 
-![Project Settings](./images/general-pipelines-settings.png "Project Settings")
+<kbd><img src="./images/general-pipelines-settings.png" alt="Project Settings" title="Project Settings" /></kbd>
 
 ### Auto DevOps
 
@@ -70,7 +70,7 @@ removes clutter from your pipelines to disable "Auto DevOps".  To do this
 expand the "Auto DevOps" section.  Uncheck the box labeled "Default to
 Auto DevOps pipeline", and click the "Save Changes" button.
 
-![Disable Auto DevOps](./images/turn-off-autodevops.png "Disable Auto DevOps")
+<kbd><img src="./images/turn-off-autodevops.png" alt="Disable Auto DevOps" title="Disable Auto DevOps" /></kbd>
 
 ## Creating a PR on GitHub
 
@@ -86,7 +86,7 @@ of the spack pipelines documentation.
 Once Gitlab has noticed your PR (or pushed commit to a PR branch) and started
 a pipeline for you, it will also create a status check on your GitHub PR.
 
-![Pipeline Status Check](./images/status-check-github.png "Pipeline Status Check")
+<kbd><img src="./images/status-check-github.png" alt="Pipeline Status Check" title="Pipeline Status Check" /></kbd>
 
 ## Miscellaneous Issues
 
@@ -106,4 +106,4 @@ repositories" section. At the bottom of that section, you should find your
 linked external GitHub repo, and on the right is a button allowing you to
 "Update now".
 
-![Update mirrored repo](./images/refresh-mirrored-repo.png "Update mirrored repo")
+<kbd><img src="./images/refresh-mirrored-repo.png" alt="Update mirrored repo" title="Update mirrored repo" /></kbd>
