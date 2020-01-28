@@ -1,24 +1,16 @@
 # DockerHub Automated Build Setup
 
-This document describes how to set up the automated DockerHub container builds
-which can build, tag, and push a Docker container with the contents of the
-binary mirror populated by the Gitlab pipeline.
+This document describes how to set up automated DockerHub container builds
+to build, tag, and push a Docker container with the contents of the binary
+mirror populated by the Gitlab pipeline.
 
 DockerHub provides information on autobuilds [here](https://docs.docker.com/docker-hub/builds/).
 
-## Overview
-
-DockerHub autobuilds can be set up to build either when you push to a specific
-branch, or when you push a tag matching some criterion.  For the current case,
-we are setting up one build to run every time the `master` branch is pushed
-(in which case the resulting container will be tagged simply with `latest`), as
-well as a build to detect when tags of a certain format are pushed.
-
-Because we're accessing a spack mirror that lives in an AWS S3 bucket via a
-specific `s3` url, we need to:
-
-1. install the `boto3` module in the container
-2. ensure AWS access credentials are available during container build
+In order to set up the automated builds, you just need to link your DockerHub
+repository to your source code repository on GitHub then configure some build
+rules telling DockerHub what source code repo actions should trigger builds
+and how the resulting images should be tagged.  These steps are described in
+more detail below.
 
 ## Link your DockerHub repo to your GitHub repo
 
@@ -52,7 +44,7 @@ In the screenshot above, you can see we have set up two build rules.  The first
 will trigger a build whenever we push to the `master` branch on our linked
 GitHub repository.  The resulting Docker image will simply be tagged `latest`.
 We have configured anoher build to be triggered upon certain tags.  Any tag
-which starts with `rev-` will be noticed and autobuilt.  Anything in the tag
+that starts with `rev-` will be noticed and autobuilt.  Anything in the tag
 string after the `rev-`, will be captured and used as the image tag.  For example
 if you wish your resulting container to be tagged `sc19`, you would tag the repo
 `rev-sc19`.
