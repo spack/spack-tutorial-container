@@ -11,19 +11,15 @@ pipeline.  The `public.key` will be stored in the container so users can
 verify the packages in the build cache.  The `pipeline.key` output file will
 contain the text that should be copy/pasted into the CI environment variable
 `SPACK_SIGNING_KEY` so pipeline jobs will be able to both sign and verify
-packages.  This repo contains a script that can generate the needed products
-from a keychain, given an export path and a key name.  From the root of this
-repository, run:
+packages.  The `export_pipeline_key.sh` shell script can generate the needed
+products from a keychain, given an export path and a key name.  The generated
+`public.key` can be committed to the repository and kept around for as long as
+the signing key (private) will continue to be used to sign the tutorial
+packages.  Make sure to pick a key (by providing it's name) that does not
+require a passphrase, or it will not work in the pipeline build jobs.  To use
+the helper script, run the following command from the root of the repository:
 
     $ ./keyhelp/export_pipeline_key.sh ./docker "name-of-key-to-export"
-
-The `public.key` can be committed to the repository and kept around for as
-long as the signing key (private) will continue to be used to sign the
-tutorial packages.
-
-NOTE: the "name-of-key-to-export" should identify a key from the keychain
-that does not require a passphrase, or it will not work in the pipeline
-build jobs.
 
 1. Create a new mirror (this is required until the sync process between the
 mirror and the container build cache is controlled by/limited to the spack
