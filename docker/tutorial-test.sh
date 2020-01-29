@@ -28,7 +28,7 @@ spack mirror add tutorial /mirror
 spack gpg trust /mirror/public.key
 spack install zlib %clang
 spack install zlib @1.2.8
-spack install zlib %gcc@4.7
+spack install zlib %gcc@4.8
 spack install zlib @1.2.8 cppflags=-O3
 spack find
 spack find -lf
