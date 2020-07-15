@@ -19,7 +19,7 @@ spack:
         - gcc@8.3.0
         - mpileaks
         - lmod
-      - ['%gcc@7.4.0']
+      - ['%gcc@7.5.0']
   - gcc_old_packages:
     - zlib%gcc@6.5.0
   - clang_packages:
