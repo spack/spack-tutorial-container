@@ -15,7 +15,7 @@ rm -rf ~/.spack/*
 # clone a new spack
 git clone https://github.com/spack/spack
 cd spack
-git checkout releases/v0.12
+git checkout releases/v0.15
 
 # shell init
 . share/spack/setup-env.sh
@@ -28,13 +28,13 @@ spack mirror add tutorial /mirror
 spack gpg trust /mirror/public.key
 spack install zlib %clang
 spack install zlib @1.2.8
-spack install zlib %gcc@4.8
+spack install zlib %gcc@7.5.0
 spack install zlib @1.2.8 cppflags=-O3
 spack find
 spack find -lf
 spack install tcl
 spack install tcl ^zlib @1.2.8 %clang
-spack install tcl ^/64mn 
+spack install tcl ^/64mn
 spack find -ldf
 spack install hdf5
 spack install hdf5~mpi
@@ -51,10 +51,10 @@ spack find -lf zlib
 spack find ^mpich
 spack find cppflags=-O3
 spack find -px
-spack install gcc@7.2.0
+spack install gcc@8.3.0
 spack find -p gcc
-spack compiler add `spack location -i gcc@7.2.0`
-spack compiler remove gcc@7.2.0
+spack compiler add `spack location -i gcc@8.3.0`
+spack compiler remove gcc@8.3.0
 
 # Packagin
 spack install mpileaks
@@ -62,13 +62,13 @@ spack install mpileaks
 # Modules
 spack install lmod
 source `spack location -i lmod`/lmod/7.8/init/bash
-spack compiler add `spack location -i gcc@7.2.0`
-spack install netlib-scalapack ^openmpi ^openblas %gcc@7.2.0
-spack install netlib-scalapack ^openmpi ^netlib-lapack %gcc@7.2.0
-spack install netlib-scalapack ^mpich ^openblas %gcc@7.2.0
-spack install netlib-scalapack ^mpich ^netlib-lapack %gcc@7.2.0
-spack install py-scipy ^openblas %gcc@7.2.0
-spack compiler remove gcc@7.2.0
+spack compiler add `spack location -i gcc@8.3.0`
+spack install netlib-scalapack ^openmpi ^openblas %gcc@8.3.0
+spack install netlib-scalapack ^openmpi ^netlib-lapack %gcc@8.3.0
+spack install netlib-scalapack ^mpich ^openblas %gcc@8.3.0
+spack install netlib-scalapack ^mpich ^netlib-lapack %gcc@8.3.0
+spack install py-scipy ^openblas %gcc@8.3.0
+spack compiler remove gcc@8.3.0
 
 # Advanced packaging
 spack install netlib-lapack

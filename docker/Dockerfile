@@ -14,11 +14,8 @@ RUN apt-get update -y && \
         clang-3.7 \
         emacs \
         g++ \
-        g++-4.8 \
         gcc \
-        gcc-4.8 \
         gfortran \
-        gfortran-4.8 \
         git \
         gnupg2 \
         iproute2 \
