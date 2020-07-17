@@ -54,7 +54,7 @@ spack:
         image:
           name: spack/ubuntu-bionic
           entrypoint: ['']
-        tags: [spack-kube, large-test]
+        tags: [spack-kube, r5.2xlarge]
         variables: {}
     - match: [trilinos, gcc]
       runner-attributes:
