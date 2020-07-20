@@ -28,13 +28,13 @@ spack mirror add tutorial /mirror
 spack gpg trust /mirror/public.key
 spack install zlib %clang
 spack install zlib @1.2.8
-spack install zlib %gcc@7.5.0
+spack install zlib %gcc@6.5.0
 spack install zlib @1.2.8 cppflags=-O3
 spack find
 spack find -lf
 spack install tcl
 spack install tcl ^zlib @1.2.8 %clang
-spack install tcl ^/64mn
+spack install tcl ^/h6i5
 spack find -ldf
 spack install hdf5
 spack install hdf5~mpi
