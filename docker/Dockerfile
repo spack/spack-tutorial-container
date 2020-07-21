@@ -8,10 +8,10 @@ ARG AWS_SECRET_ACCESS_KEY="None"
 RUN apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         autoconf \
+        build-essential \
         ca-certificates \
         curl \
         clang \
-        clang-3.7 \
         emacs \
         file \
         g++ \
