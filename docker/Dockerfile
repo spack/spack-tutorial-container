@@ -38,15 +38,13 @@ RUN apt-get update -y && \
     apt-get autoremove --purge && \
     apt-get clean
 
-RUN mkdir -p /mirror/build_cache && \
-    aws s3 sync ${REMOTE_BUILDCACHE_URL} /mirror
-
 COPY /public.key /mirror/public.key
 COPY /packages.yaml /etc/spack/packages.yaml
 COPY /tutorial-test.sh /tutorial/.test/tutorial-test.sh
 
-### TODO: Find another way to set perms without increasing the image download size
 RUN useradd -ms /bin/bash spack && \
+    mkdir -p /mirror/build_cache && \
+    aws s3 sync ${REMOTE_BUILDCACHE_URL} /mirror && \
     chmod -R go+r /mirror && \
     chmod -R go+r /etc/spack && \
     chmod go+rx /tutorial/.test/tutorial-test.sh
