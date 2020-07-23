@@ -1,9 +1,9 @@
 spack:
   definitions:
   - bootstrapped_compilers:
-    - "llvm@6.0.0 %gcc@7.3.0 os=centos7"
-    - "gcc@7.2.1 %gcc@7.3.0 os=centos7"
-    - "gcc@8.3.0 %gcc@7.3.0 os=centos7"
+    - "llvm@6.0.0 os=centos7"
+    - "gcc@7.2.1 os=centos7"
+    - "gcc@8.3.0 os=centos7"
   - gcc_system_packages:
     - matrix:
       - - zlib
@@ -46,7 +46,8 @@ spack:
 
   gitlab-ci:
     bootstrap:
-      - bootstrapped_compilers
+      - name: bootstrapped_compilers
+        compiler-agnostic: true
     mappings:
     - match: [llvm]
       runner-attributes:
@@ -62,7 +63,7 @@ spack:
           entrypoint: ['']
         tags: [spack-kube, large]
         variables: {}
-    - match: [os=ubuntu18.04]
+    - match: [os=centos7]
       runner-attributes:
         image:
           name: ecpe4s/centos7-runner:1.0
