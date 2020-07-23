@@ -19,9 +19,9 @@ spack:
         - gcc@8.3.0
         - mpileaks
         - lmod
-      - ['%gcc@4.8.5']
+      - ['%gcc@7.2.1']
   - gcc_old_packages:
-    - zlib%gcc@7.2.1
+    - zlib%gcc@4.8.5
   - clang_packages:
     - matrix:
       - [zlib, tcl ^zlib@1.2.8]
