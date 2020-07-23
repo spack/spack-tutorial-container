@@ -1,9 +1,9 @@
 spack:
   definitions:
   - bootstrapped_compilers:
-    - "llvm@6.0.0 os=ubuntu18.04"
-    - "gcc@6.5.0 os=ubuntu18.04"
-    - "gcc@8.3.0 os=ubuntu18.04"
+    - "llvm@6.0.0 %gcc@7.3.0 os=centos7"
+    - "gcc@7.2.1 %gcc@7.3.0 os=centos7"
+    - "gcc@8.3.0 %gcc@7.3.0 os=centos7"
   - gcc_system_packages:
     - matrix:
       - - zlib
@@ -19,9 +19,9 @@ spack:
         - gcc@8.3.0
         - mpileaks
         - lmod
-      - ['%gcc@7.5.0']
+      - ['%gcc@7.3.0']
   - gcc_old_packages:
-    - zlib%gcc@6.5.0
+    - zlib%gcc@7.2.1
   - clang_packages:
     - matrix:
       - [zlib, tcl ^zlib@1.2.8]
@@ -42,49 +42,49 @@ spack:
   - $gcc_spack_built_packages
 
   mirrors:
-    cloud_mirror: 's3://spack-tutorial-container/mirror'
+    cloud_mirror: 's3://spack-tutorial-container/mirror-centos7'
 
   gitlab-ci:
     bootstrap:
-      - name: bootstrapped_compilers
-        compiler-agnostic: true
+      - bootstrapped_compilers
     mappings:
     - match: [llvm]
       runner-attributes:
         image:
-          name: spack/ubuntu-bionic
+          name: ecpe4s/centos7-runner:1.0
           entrypoint: ['']
         tags: [spack-kube, r5.2xlarge]
         variables: {}
     - match: [trilinos, gcc]
       runner-attributes:
         image:
-          name: spack/ubuntu-bionic
+          name: ecpe4s/centos7-runner:1.0
           entrypoint: ['']
         tags: [spack-kube, large]
         variables: {}
     - match: [os=ubuntu18.04]
       runner-attributes:
         image:
-          name: spack/ubuntu-bionic
+          name: ecpe4s/centos7-runner:1.0
           entrypoint: ['']
         tags: [spack-kube, medium]
         variables: {}
     final-stage-rebuild-index:
       tags: [spack-kube]
       image:
-        name: spack/ubuntu-bionic
+        name: ecpe4s/centos7-runner:1.0
         entrypoint: ['']
     enable-debug-messages: True
 
   cdash:
-    build-group: Spack v0.15.1 Tutorial Container
+    build-group: Spack v0.15.1 (Centos7) Tutorial Container
     url: https://cdash.spack.io
     project: Spack
     site: Spack Gitlab Cloud Infrastructure
 
   view: false
-  config: {}
+  config:
+    install_tree: /home/software/$padding:512
   modules:
     enable: []
   packages:
