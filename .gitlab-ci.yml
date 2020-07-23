@@ -17,7 +17,7 @@ generate-pipeline:
   artifacts:
     paths:
       - "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
-  image: { "name": "ecpe4s/centos7-runner:1.0", "entrypoint": [""] }
+  image: { "name": "spack/centos7", "entrypoint": [""] }
   tags: ["spack-kube", "medium"]
 
 build-jobs:

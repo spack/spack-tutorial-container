@@ -19,7 +19,7 @@ spack:
         - gcc@8.3.0
         - mpileaks
         - lmod
-      - ['%gcc@7.3.0']
+      - ['%gcc@4.8.5']
   - gcc_old_packages:
     - zlib%gcc@7.2.1
   - clang_packages:
@@ -52,28 +52,28 @@ spack:
     - match: [llvm]
       runner-attributes:
         image:
-          name: ecpe4s/centos7-runner:1.0
+          name: spack/centos7
           entrypoint: ['']
         tags: [spack-kube, r5.2xlarge]
         variables: {}
     - match: [trilinos, gcc]
       runner-attributes:
         image:
-          name: ecpe4s/centos7-runner:1.0
+          name: spack/centos7
           entrypoint: ['']
         tags: [spack-kube, large]
         variables: {}
     - match: [os=centos7]
       runner-attributes:
         image:
-          name: ecpe4s/centos7-runner:1.0
+          name: spack/centos7
           entrypoint: ['']
         tags: [spack-kube, medium]
         variables: {}
     final-stage-rebuild-index:
       tags: [spack-kube]
       image:
-        name: ecpe4s/centos7-runner:1.0
+        name: spack/centos7
         entrypoint: ['']
     enable-debug-messages: True
 
