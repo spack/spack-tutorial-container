@@ -1,9 +1,9 @@
 spack:
   definitions:
   - bootstrapped_compilers:
-    - "llvm@6.0.0 os=ubuntu18.04"
-    - "gcc@6.5.0 os=ubuntu18.04"
-    - "gcc@8.3.0 os=ubuntu18.04"
+    - "llvm@6.0.0 os=amzn2"
+    - "gcc@6.5.0 os=amzn2"
+    - "gcc@8.3.0 os=amzn2"
   - gcc_system_packages:
     - matrix:
       - - zlib
@@ -19,7 +19,7 @@ spack:
         - gcc@8.3.0
         - mpileaks
         - lmod
-      - ['%gcc@7.5.0']
+      - ['%gcc@7.3.1']
   - gcc_old_packages:
     - zlib%gcc@6.5.0
   - clang_packages:
@@ -42,7 +42,7 @@ spack:
   - $gcc_spack_built_packages
 
   mirrors:
-    cloud_mirror: 's3://spack-tutorial-container/mirror-v0.15.1'
+    cloud_mirror: 's3://spack-tutorial-container/mirror-amazonlinux'
 
   gitlab-ci:
     bootstrap:
@@ -52,46 +52,46 @@ spack:
     - match: [llvm]
       runner-attributes:
         image:
-          name: spack/ubuntu-bionic
+          name: scottwittenburg/amazonlinux-builder
           entrypoint: ['']
         tags: [spack-kube, r5.2xlarge]
         variables: {}
     - match: [trilinos, gcc]
       runner-attributes:
         image:
-          name: spack/ubuntu-bionic
+          name: scottwittenburg/amazonlinux-builder
           entrypoint: ['']
         tags: [spack-kube, large]
         variables: {}
-    - match: [os=ubuntu18.04]
+    - match: [os=amzn2]
       runner-attributes:
         image:
-          name: spack/ubuntu-bionic
+          name: scottwittenburg/amazonlinux-builder
           entrypoint: ['']
         tags: [spack-kube, medium]
         variables: {}
     final-stage-rebuild-index:
       tags: [spack-kube]
       image:
-        name: spack/ubuntu-bionic
+        name: scottwittenburg/amazonlinux-builder
         entrypoint: ['']
     enable-debug-messages: True
 
   cdash:
-    build-group: Spack v0.15.1 Tutorial Container
+    build-group: Spack v0.15.1 (amzn2) Tutorial Container
     url: https://cdash.spack.io
     project: Spack
     site: Spack Gitlab Cloud Infrastructure
 
   view: false
-  config: {}
+  config:
+    install_tree: /home/software/$padding:512
   modules:
     enable: []
   packages:
-    suite-sparse:
-      version: [5.3.0, 5.4.0, 5.5.0, 5.6.0]
     all:
       target: [x86_64]
   repos: []
   upstreams: {}
   concretization: separately
+
