@@ -19,6 +19,7 @@ spack:
         - gcc@8.3.0
         - mpileaks
         - lmod
+        - macsio@1.1+scr^scr@2.0.0
       - ['%gcc@7.5.0']
   - gcc_old_packages:
     - zlib%gcc@6.5.0
@@ -54,31 +55,31 @@ spack:
         image:
           name: spack/ubuntu-bionic
           entrypoint: ['']
-        tags: [spack-kube, r5.2xlarge]
+        tags: [spack, public, x86_64, huge]
         variables: {}
     - match: [trilinos, gcc]
       runner-attributes:
         image:
           name: spack/ubuntu-bionic
           entrypoint: ['']
-        tags: [spack-kube, large]
+        tags: [spack, public, x86_64, xlarge]
         variables: {}
     - match: [os=ubuntu18.04]
       runner-attributes:
         image:
           name: spack/ubuntu-bionic
           entrypoint: ['']
-        tags: [spack-kube, medium]
+        tags: [spack, public, x86_64, large]
         variables: {}
     final-stage-rebuild-index:
-      tags: [spack-kube]
+      tags: [spack, public, x86_64]
       image:
         name: spack/ubuntu-bionic
         entrypoint: ['']
     enable-debug-messages: True
 
   cdash:
-    build-group: Spack v0.15.1 Tutorial Container
+    build-group: Spack v0.16.1 Tutorial Container
     url: https://cdash.spack.io
     project: Spack
     site: Spack Gitlab Cloud Infrastructure
