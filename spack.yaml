@@ -42,7 +42,7 @@ spack:
   - $gcc_spack_built_packages
 
   mirrors:
-    cloud_mirror: 's3://spack-tutorial-container/mirror-v0.15.1'
+    cloud_mirror: 's3://spack-tutorial-container/mirror'
 
   gitlab-ci:
     bootstrap:
@@ -88,8 +88,6 @@ spack:
   modules:
     enable: []
   packages:
-    suite-sparse:
-      version: [5.3.0, 5.4.0, 5.5.0, 5.6.0]
     all:
       target: [x86_64]
   repos: []

@@ -8,17 +8,18 @@ ARG AWS_SECRET_ACCESS_KEY="None"
 RUN apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
         autoconf \
+        build-essential \
         ca-certificates \
         curl \
         clang \
-        clang-3.7 \
         emacs \
+        file \
         g++ \
-        g++-4.8 \
+        g++-6 \
         gcc \
-        gcc-4.8 \
+        gcc-6 \
         gfortran \
-        gfortran-4.8 \
+        gfortran-6 \
         git \
         gnupg2 \
         iproute2 \
@@ -37,22 +38,20 @@ RUN apt-get update -y && \
     apt-get autoremove --purge && \
     apt-get clean
 
-RUN mkdir -p /mirror/build_cache && \
-    aws s3 sync ${REMOTE_BUILDCACHE_URL} /mirror/build_cache
-
 COPY /public.key /mirror/public.key
-# COPY /packages.yaml /etc/spack/packages.yaml
+COPY /packages.yaml /etc/spack/packages.yaml
 COPY /tutorial-test.sh /tutorial/.test/tutorial-test.sh
 
-### TODO: Find another way to set perms without increasing the image download size
 RUN useradd -ms /bin/bash spack && \
+    mkdir -p /mirror/build_cache && \
+    aws s3 sync ${REMOTE_BUILDCACHE_URL} /mirror && \
     chmod -R go+r /mirror && \
-#    chmod -R go+r /etc/spack && \
+    chmod -R go+r /etc/spack && \
     chmod go+rx /tutorial/.test/tutorial-test.sh
 
 USER spack
 
 WORKDIR /home/spack
 
-CMD ["bash"]i
+CMD ["bash"]
 
