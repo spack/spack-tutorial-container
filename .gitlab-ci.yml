@@ -1,16 +1,19 @@
 stages: [generate, build]
 
+variables:
+  SPACK_REPO: https://github.com/spack/spack.git
+  SPACK_REF: develop
+
 generate-pipeline:
   stage: generate
   before_script:
     - git clone ${SPACK_REPO} --branch ${SPACK_REF}
-    - pushd ./spack && export CURRENT_SPACK_SHA=$(git rev-parse HEAD) && popd
+    - pushd ./spack && git checkout ${SPACK_REF} && popd
     - . "./spack/share/spack/setup-env.sh"
+    - spack --version
   script:
-    - spack env activate .
+    - spack env activate --without-view .
     - spack -d ci generate
-      --spack-repo ${SPACK_REPO}
-      --spack-ref ${CURRENT_SPACK_SHA}
       --output-file "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
   after_script:
     - rm -rf "./spack"
@@ -18,7 +21,7 @@ generate-pipeline:
     paths:
       - "${CI_PROJECT_DIR}/jobs_scratch_dir/pipeline.yml"
   image: { "name": "spack/ubuntu-bionic", "entrypoint": [""] }
-  tags: ["spack-kube", "medium"]
+  tags: ["spack", "public", "medium", "x86_64"]
 
 build-jobs:
   stage: build

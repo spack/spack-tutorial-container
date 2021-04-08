@@ -43,12 +43,21 @@ spack:
   - $gcc_spack_built_packages
 
   mirrors:
-    cloud_mirror: 's3://spack-tutorial-container/mirror'
+    cloud_mirror: 's3://spack-binaries-prs/tutorial/ecp21/mirror'
 
   gitlab-ci:
     bootstrap:
       - name: bootstrapped_compilers
         compiler-agnostic: true
+    before_script:
+      - git clone ${SPACK_REPO} --branch ${SPACK_REF}
+      - pushd ./spack && git checkout ${SPACK_REF} && popd
+      - . "./spack/share/spack/setup-env.sh"
+      - spack --version
+    script:
+      - spack -d ci rebuild
+    after_script:
+      - rm -rf spack
     mappings:
     - match: [llvm]
       runner-attributes:
@@ -56,27 +65,26 @@ spack:
           name: ghcr.io/scottwittenburg/ecpe4s-ubuntu18.04-runner-x86_64:2020-09-01
           entrypoint: ['']
         tags: [spack, public, x86_64, huge]
-        variables: {}
     - match: [trilinos, gcc]
       runner-attributes:
         image:
           name: ghcr.io/scottwittenburg/ecpe4s-ubuntu18.04-runner-x86_64:2020-09-01
           entrypoint: ['']
         tags: [spack, public, x86_64, xlarge]
-        variables: {}
     - match: [os=ubuntu18.04]
       runner-attributes:
         image:
           name: ghcr.io/scottwittenburg/ecpe4s-ubuntu18.04-runner-x86_64:2020-09-01
           entrypoint: ['']
         tags: [spack, public, x86_64, large]
-        variables: {}
-    final-stage-rebuild-index:
-      tags: [spack, public, x86_64]
+    rebuild-index: True
+    service-job-attributes:
+      tags: [spack, public, medium, x86_64]
       image:
         name: ghcr.io/scottwittenburg/ecpe4s-ubuntu18.04-runner-x86_64:2020-09-01
         entrypoint: ['']
-    enable-debug-messages: True
+    temporary-storage-url-prefix: "s3://spack-binaries-prs/tutorial/temp-storage"
+
 
   cdash:
     build-group: Spack v0.16.1 Tutorial Container
