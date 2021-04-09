@@ -55,7 +55,7 @@ spack:
       - . "./spack/share/spack/setup-env.sh"
       - spack --version
     script:
-      - spack -d ci rebuild
+      - spack -e . -d ci rebuild
     after_script:
       - rm -rf spack
     mappings:
