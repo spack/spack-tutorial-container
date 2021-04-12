@@ -78,18 +78,12 @@ spack:
           name: ghcr.io/scottwittenburg/ecpe4s-ubuntu18.04-runner-x86_64:2020-09-01
           entrypoint: ['']
         tags: [spack, public, x86_64, large]
-    rebuild-index: True
-    service-job-attributes:
-      before_script:
-        - git clone ${SPACK_REPO} --branch ${SPACK_REF}
-        - pushd ./spack && git checkout ${SPACK_REF} && popd
-        - . "./spack/share/spack/setup-env.sh"
-        - spack --version
+    final-stage-rebuild-index:
       tags: [spack, public, medium, x86_64]
       image:
         name: ghcr.io/scottwittenburg/ecpe4s-ubuntu18.04-runner-x86_64:2020-09-01
         entrypoint: ['']
-    temporary-storage-url-prefix: "s3://spack-binaries-prs/tutorial/temp-storage"
+    enable-artifacts-buildcache: True
 
 
   cdash:
