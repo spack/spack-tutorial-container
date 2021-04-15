@@ -19,7 +19,7 @@ spack:
         - gcc@8.3.0
         - mpileaks
         - lmod
-        - macsio@1.1+scr^scr@2.0.0
+        - macsio@1.1+scr^scr@2.0.0~fortran^silo~fortran^hdf5~fortran
       - ['%gcc@7.5.0']
   - gcc_old_packages:
     - zlib%gcc@6.5.0
