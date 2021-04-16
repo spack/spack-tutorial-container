@@ -39,6 +39,7 @@ RUN apt-get update -y && \
     apt-get clean
 
 COPY /packages.yaml /etc/spack/packages.yaml
+COPY /config.yaml /etc/spack/config.yaml
 COPY /tutorial-test.sh /tutorial/.test/tutorial-test.sh
 
 RUN useradd -ms /bin/bash spack && \
