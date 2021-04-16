@@ -1,6 +1,6 @@
 FROM ubuntu:18.04
 
-ARG REMOTE_BUILDCACHE_URL="s3://spack-tutorial/mirror/build_cache"
+ARG REMOTE_BUILDCACHE_URL="tutorial s3://spack-binaries-prs/tutorial/ecp21/mirror"
 ARG SPACK_PUBLIC_GPG_KEY=""
 ARG AWS_ACCESS_KEY_ID="None"
 ARG AWS_SECRET_ACCESS_KEY="None"
@@ -38,8 +38,8 @@ RUN apt-get update -y && \
     apt-get autoremove --purge && \
     apt-get clean
 
-COPY /public.key /mirror/public.key
 COPY /packages.yaml /etc/spack/packages.yaml
+COPY /config.yaml /etc/spack/config.yaml
 COPY /tutorial-test.sh /tutorial/.test/tutorial-test.sh
 
 RUN useradd -ms /bin/bash spack && \
@@ -54,4 +54,3 @@ USER spack
 WORKDIR /home/spack
 
 CMD ["bash"]
-

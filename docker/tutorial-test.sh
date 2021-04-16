@@ -56,6 +56,9 @@ spack find -p gcc
 spack compiler add `spack location -i gcc@8.3.0`
 spack compiler remove gcc@8.3.0
 
+# Dev workflows
+spack install macsio+scr
+
 # Packagin
 spack install mpileaks
 

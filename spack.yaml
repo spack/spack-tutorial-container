@@ -19,6 +19,7 @@ spack:
         - gcc@8.3.0
         - mpileaks
         - lmod
+        - macsio@1.1+scr^scr@2.0.0~fortran^silo~fortran^hdf5~fortran
       - ['%gcc@7.5.0']
   - gcc_old_packages:
     - zlib%gcc@6.5.0
@@ -42,43 +43,49 @@ spack:
   - $gcc_spack_built_packages
 
   mirrors:
-    cloud_mirror: 's3://spack-tutorial-container/mirror'
+    cloud_mirror: 's3://spack-binaries-prs/tutorial/ecp21/mirror'
 
   gitlab-ci:
     bootstrap:
       - name: bootstrapped_compilers
         compiler-agnostic: true
+    before_script:
+      - git clone ${SPACK_REPO} --branch ${SPACK_REF}
+      - pushd ./spack && git checkout ${SPACK_REF} && popd
+      - . "./spack/share/spack/setup-env.sh"
+      - spack --version
+    script:
+      - spack env activate --without-view .
+      - spack -d ci rebuild
+    after_script:
+      - rm -rf spack
     mappings:
     - match: [llvm]
       runner-attributes:
         image:
-          name: spack/ubuntu-bionic
+          name: ghcr.io/scottwittenburg/ecpe4s-ubuntu18.04-runner-x86_64:2020-09-01
           entrypoint: ['']
-        tags: [spack-kube, r5.2xlarge]
-        variables: {}
+        tags: [spack, public, x86_64, huge]
     - match: [trilinos, gcc]
       runner-attributes:
         image:
-          name: spack/ubuntu-bionic
+          name: ghcr.io/scottwittenburg/ecpe4s-ubuntu18.04-runner-x86_64:2020-09-01
           entrypoint: ['']
-        tags: [spack-kube, large]
-        variables: {}
+        tags: [spack, public, x86_64, xlarge]
     - match: [os=ubuntu18.04]
       runner-attributes:
         image:
-          name: spack/ubuntu-bionic
+          name: ghcr.io/scottwittenburg/ecpe4s-ubuntu18.04-runner-x86_64:2020-09-01
           entrypoint: ['']
-        tags: [spack-kube, medium]
-        variables: {}
+        tags: [spack, public, x86_64, large]
     final-stage-rebuild-index:
-      tags: [spack-kube]
+      tags: [spack, public, medium, x86_64]
       image:
-        name: spack/ubuntu-bionic
+        name: ghcr.io/scottwittenburg/ecpe4s-ubuntu18.04-runner-x86_64:2020-09-01
         entrypoint: ['']
-    enable-debug-messages: True
 
   cdash:
-    build-group: Spack v0.15.1 Tutorial Container
+    build-group: Spack v0.16.1 Tutorial Container
     url: https://cdash.spack.io
     project: Spack
     site: Spack Gitlab Cloud Infrastructure
