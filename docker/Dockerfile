@@ -1,9 +1,6 @@
 FROM ubuntu:18.04
 
 ARG REMOTE_BUILDCACHE_URL="tutorial s3://spack-binaries-prs/tutorial/ecp21/mirror"
-ARG SPACK_PUBLIC_GPG_KEY=""
-ARG AWS_ACCESS_KEY_ID="None"
-ARG AWS_SECRET_ACCESS_KEY="None"
 
 RUN apt-get update -y && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \

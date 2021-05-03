@@ -2,8 +2,6 @@
 
 docker build \
     --build-arg REMOTE_BUILDCACHE_URL=${REMOTE_BUILDCACHE_URL} \
-    --build-arg AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID} \
-    --build-arg AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY} \
     -f ${DOCKERFILE_PATH} \
     -t ${IMAGE_NAME} .
 

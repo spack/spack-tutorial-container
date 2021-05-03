@@ -33,8 +33,8 @@ See the spack pipeline [documentation](https://github.com/scottwittenburg/spack/
 1. `SPACK_REPO` (optional) Useful if a custom spack should be cloned to generate and run the pipeline jobs
 2. `SPACK_REF` (optional) Useful if a custom spack should be cloned to generate and run the pipeline jobs
 3. `SPACK_SIGNING_KEY` Required to sign buildcache entries (package binaries) after they are built
-4. `AWS_ACCESS_KEY_ID` (optional) Needed to authenticate to S3 mirror
-5. `AWS_SECRET_ACCESS_KEY` (optional) Needed to authenticat to S3 mirror
+4. `AWS_ACCESS_KEY_ID` (optional) Needed to authenticate to S3 mirror to gain write access
+5. `AWS_SECRET_ACCESS_KEY` (optional) Needed to authenticate to S3 mirror to gain write access
 6. `S3_ENDPOIT_URL` (optional) Needed if targeting an S3 mirror that is NOT hosted on AWS
 7. `CDASH_AUTH_TOKEN` (optional) Needed if reporting build results to a CDash instance
 8. `DOWNSTREAM_CI_REPO` Needed until Gitlab child pipelines are implemented.  This is the repo url where the generated workload should be pushed, and for many cases, pushing to the same repo is a workable approach.
@@ -51,5 +51,5 @@ This workflow makes use of a public mirror hosted on AWS S3.  The automated pipe
 
 The DockerHub repository is configured to automatically build a container from the `Dockerfile` and build context in the `docker/` directory of this repository.  The build context also contains a custom build hook used by DockerHub to create the container in such a way that a few environment variables are made available as `--build-args` when the container is built.
 
-The environment variables we need to set in the DockerHub UI and pass to the `docker build...` command are: `REMOTE_BUILDCACHE_URL` (publicly accessible mirror url where the binares were pushed by the Gitlab CI/CD pipeline), as well as `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (needed to authenticate to the binary mirror, because the mirror is an AWS S3 bucket and we use `awscli` to sync it's contents with the container filesystem).
+Note we need to set the `REMOTE_BUILDCACHE_URL` environment variable in the DockerHub UI and pass it to the `docker build...` command via the a build argument (see `docker/hooks/build`).  The `REMOTE_BUILDCACHE_URL` points to a publicly accessible mirror url where the binares were pushed by the Gitlab CI/CD pipeline.
 
