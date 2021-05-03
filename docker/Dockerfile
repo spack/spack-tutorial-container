@@ -41,7 +41,7 @@ COPY /tutorial-test.sh /tutorial/.test/tutorial-test.sh
 
 RUN useradd -ms /bin/bash spack && \
     mkdir -p /mirror/build_cache && \
-    aws s3 sync ${REMOTE_BUILDCACHE_URL} /mirror && \
+    aws --no-sign-request s3 sync ${REMOTE_BUILDCACHE_URL} /mirror && \
     chmod -R go+r /mirror && \
     chmod -R go+r /etc/spack && \
     chmod go+rx /tutorial/.test/tutorial-test.sh
